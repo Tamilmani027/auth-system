@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import axios from "axios";
 
 
-const Register = () => {
+const RegisterPage = () => {
   const initialValues = {
     name: "",
     email: "",
@@ -64,12 +64,10 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
                 type="text"
                 name="name"
                 placeholder="Name"
-                className="w-full p-3 border rounded-md"
               />
               <ErrorMessage
                 name="name"
                 component="p"
-                className="text-red-500 text-sm mt-1"
               />
             </div>
 
@@ -78,12 +76,10 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="w-full p-3 border rounded-md"
               />
               <ErrorMessage
                 name="email"
                 component="p"
-                className="text-red-500 text-sm mt-1"
               />
             </div>
 
@@ -92,18 +88,15 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
                 type="password"
                 name="password"
                 placeholder="Password"
-                className="w-full p-3 border rounded-md"
               />
               <ErrorMessage
                 name="password"
                 component="p"
-                className="text-red-500 text-sm mt-1"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700"
             >
               Register
             </button>
@@ -114,4 +107,4 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
   );
 };
 
-export default Register;
+export default RegisterPage;

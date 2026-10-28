@@ -5,7 +5,7 @@ import App from './App.jsx'
 import axios from 'axios';
 
 
-const api = axios.create({baseURL: 'http://localhost:5000/api',});
+axios.defaults.baseURL = 'http://localhost:3000/api/auth';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
