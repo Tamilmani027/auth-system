@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+*{
+	padding:0;
+	margin:0;
+	box-sizing: border-box;
+	font-family: "Open Sans", sans-serif;
+}
+
+.homePage{
+	display: flex;
+	flex-wrap: row;
+	align-items: center;
+	justify-content: space-between;
+	background-color:cadetblue;
+	padding:10px;
+	box-shadow: solid black;
+}
+
+.homePageBtn{
+	display: flex;
+	gap:20px;
+}
+
+button{
+	padding:10px;
+	border-radius: 8px;
+	border:none;
+	color:aliceblue;
+	background-color: black;
+}
+
+.registerPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;    
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.registerPage h2{
+	padding:10px;
+}
+
+.registerForm {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	background-color:cadetblue;
+}
+
+.Field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.registerForm button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1b273f;
+  color: white;
+  cursor: pointer;
+}
+
+.registerForm button:hover {
+  background-color: #090c11;
+}
+
+.registerForm p {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

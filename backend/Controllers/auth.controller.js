@@ -1,4 +1,4 @@
-import User from '../Models/auth.models.js';
+import User from '../models/auth.models.js';
 import bcrypt from 'bcryptjs';
 import sendMail from '../Services/sendMail.js';
 

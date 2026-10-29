@@ -47,23 +47,22 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
 };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">
+    <div className="registerPage">
+        <h2>
           Register
         </h2>
-
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          <Form className="space-y-4">
+          <Form className="registerForm">
             <div>
               <Field
                 type="text"
                 name="name"
                 placeholder="Name"
+                className="Field"
               />
               <ErrorMessage
                 name="name"
@@ -76,6 +75,7 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
                 type="email"
                 name="email"
                 placeholder="Email"
+                className="Field"
               />
               <ErrorMessage
                 name="email"
@@ -88,6 +88,7 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
                 type="password"
                 name="password"
                 placeholder="Password"
+                className="Field"
               />
               <ErrorMessage
                 name="password"
@@ -102,7 +103,6 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
             </button>
           </Form>
         </Formik>
-      </div>
     </div>
   );
 };

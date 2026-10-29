@@ -1,19 +1,22 @@
 import { Outlet, useNavigate } from 'react-router-dom';
+import "../src/App.css";
 
 function Home() {
   const navigate = useNavigate();
 
   return (
     <div>
-      <h1>Home Page</h1>
-
+      <div className='homePage'>
+      <h2>Welcome to Auth system</h2>
+      <div className='homePageBtn'>
       <button onClick={() => navigate('/login')}>
-        Login
+      Login
       </button>
-
       <button onClick={() => navigate('/register')}>
-        Register
+      Register
       </button>
+      </div>
+      </div>
 
       <Outlet />
     </div>
