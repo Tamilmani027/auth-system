@@ -57,51 +57,38 @@ const handleSubmit = async (values, { resetForm, setSubmitting }) => {
           onSubmit={handleSubmit}
         >
           <Form className="registerForm">
-            <div>
-              <Field
-                type="text"
-                name="name"
-                placeholder="Name"
-                className="Field"
-              />
-              <ErrorMessage
-                name="name"
-                component="p"
-              />
-            </div>
+  <div className="formGroup">
+    <Field
+      type="text"
+      name="name"
+      placeholder="Name"
+      className="Field"
+    />
+    <ErrorMessage name="name" component="p" />
+  </div>
 
-            <div>
-              <Field
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="Field"
-              />
-              <ErrorMessage
-                name="email"
-                component="p"
-              />
-            </div>
+  <div className="formGroup">
+    <Field
+      type="email"
+      name="email"
+      placeholder="Email"
+      className="Field"
+    />
+    <ErrorMessage name="email" component="p" />
+  </div>
 
-            <div>
-              <Field
-                type="password"
-                name="password"
-                placeholder="Password"
-                className="Field"
-              />
-              <ErrorMessage
-                name="password"
-                component="p"
-              />
-            </div>
+  <div className="formGroup">
+    <Field
+      type="password"
+      name="password"
+      placeholder="Password"
+      className="Field"
+    />
+    <ErrorMessage name="password" component="p" />
+  </div>
 
-            <button
-              type="submit"
-            >
-              Register
-            </button>
-          </Form>
+  <button type="submit">Register</button>
+</Form>
         </Formik>
     </div>
   );

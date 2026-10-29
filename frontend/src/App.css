@@ -52,7 +52,10 @@ button{
   border-radius: 12px;
   background-color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	background-color:cadetblue;
+	background-color:rgb(120, 195, 197);
+}
+.formGroup {
+  margin-bottom: 20px;
 }
 
 .Field {
@@ -81,4 +84,40 @@ button{
   color: red;
   font-size: 14px;
   margin-top: 5px;
+}
+
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;    
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.loginPage h2{
+	padding:10px;
+}
+
+.loginForm {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	background-color:cadetblue;
+}
+
+
+
+.loginForm button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1b273f;
+  color: white;
+  cursor: pointer;
 }

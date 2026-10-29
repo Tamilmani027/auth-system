@@ -48,7 +48,7 @@ const LoginPage=()=> {
 				onSubmit={handleSubmit}
 			>
 				<Form className='loginForm'>
-					<div>
+					<div  className="formGroup">
 							<Field
 								type="email"
 								name="email"
@@ -61,7 +61,7 @@ const LoginPage=()=> {
 							component="p"
 						/>						
 					</div>
-					<div>
+					<div  className="formGroup">
 						<Field
 							type="password"
 							name="password"
