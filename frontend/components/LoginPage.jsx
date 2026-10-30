@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Context from '../src/Context';
+import {toast} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage=()=> {
+	const navigate=useNavigate();
+	const {isLoggedIn, login ,logout} = useContext(Context);
+
 	const initialValues={
 		email:"",
 		password:""
@@ -22,16 +29,16 @@ const LoginPage=()=> {
 	const handleSubmit = async (values, {resetForm, setSubmitting})=>{
 		try{
 			const response= await axios.post('/login',values);
+			localStorage.setItem('isLoggedIn','true');
+			login()
 			console.log(response.data);
-			alert(response.data.message);
 			resetForm();
+			toast.success(response.data.message || 'Login successful');
+			navigate('/');
 		}
 		catch (error){
 			console.error(error);
-
-			alert(
-				error.response?.data?.message || 'Login failed'
-			);
+			toast.error(error.response?.data?.message || 'Login failed');
 		}
 		finally{
 			setSubmitting(false);
@@ -75,6 +82,7 @@ const LoginPage=()=> {
 						/>
 					</div>
 					<button type="submit">Login</button>
+					<Link to='/forgot-password'>Forgot Password ?</Link>
 				</Form>
 
 			</Formik>

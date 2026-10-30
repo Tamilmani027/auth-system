@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import axios from 'axios';
+import {ToastContainer} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 axios.defaults.baseURL = 'http://localhost:3000/api/auth';
@@ -10,5 +12,6 @@ axios.defaults.baseURL = 'http://localhost:3000/api/auth';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
+    <ToastContainer position="top-right" autoClose={3000} theme="light" />
   </StrictMode>,
 )

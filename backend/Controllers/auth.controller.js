@@ -1,6 +1,6 @@
 import User from '../models/auth.models.js';
 import bcrypt from 'bcryptjs';
-import sendMail from '../Services/sendMail.js';
+import sendMail from '../services/sendMail.js';
 
 export const register = async (req, res) => {
   try {
