@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const ForgotPassword = () => {
+    const navigate=useNavigate();
 
     const [mail, setMail] = useState('');
 
@@ -13,7 +15,7 @@ const ForgotPassword = () => {
             });
 
             toast.success(response.data.message || 'Reset link sent');
-
+            navigate('/login'); 
             setMail('');
 
         } catch (error) {

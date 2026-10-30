@@ -32,7 +32,6 @@ function Home() {
       <button onClick={() => navigate('/register')}>Register</button>
       </div>)}
       </div>
-      <ResetPassword/>
      <Outlet />
      
     </div>
