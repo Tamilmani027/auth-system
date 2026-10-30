@@ -1,12 +1,48 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const ForgotPassword = () => {
-	return (
-		<div>
-			
-			
-		</div>
-	)
-}
 
-export default ForgotPassword
+    const [mail, setMail] = useState('');
+
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post('/forgot-password', {
+                email: mail
+            });
+
+            toast.success(response.data.message || 'Reset link sent');
+
+            setMail('');
+
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Something went wrong');
+        }
+    };
+
+    return (
+        <div className='forgotPasswordPage'>
+            <div className='forgotPassword'>
+
+                <label htmlFor="email">Password Reset</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    value={mail}
+                    onChange={(e) => setMail(e.target.value)}
+                />
+
+                <button onClick={handleSubmit}>
+                    Send Link
+                </button>
+
+            </div>
+        </div>
+    );
+};
+
+export default ForgotPassword;

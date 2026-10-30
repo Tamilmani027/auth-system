@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import "../src/App.css";
 import { useContext, useState } from 'react';
 import Context from '../src/Context';
+import ForgotPassword from './ForgotPassword';
 
 function Home() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Home() {
   
 
   return (
+    <>
     <div>
       <div className='homePage'>
       {isLoggedIn ? (
@@ -29,9 +31,10 @@ function Home() {
       <button onClick={() => navigate('/register')}>Register</button>
       </div>)}
       </div>
-
-      <Outlet />
+     <Outlet />
+     
     </div>
+    </>
   );
 }
 
