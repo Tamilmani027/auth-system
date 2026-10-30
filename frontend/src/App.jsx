@@ -6,6 +6,7 @@ import RegisterPage from '../components/RegisterPage';
 import Context from './Context';
 import { useState } from 'react';
 import ForgotPassword from '../components/ForgotPassword';
+import ResetPassword from '../components/ResetPassword';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path:'/forgot-password',
         element:<ForgotPassword/>
+      },
+      {
+      path:'/reset-password/:token',
+      element:<ResetPassword/>
       }
     ],
   },

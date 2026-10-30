@@ -1,6 +1,6 @@
 import User from '../models/auth.models.js';
 import bcrypt from 'bcryptjs';
-import sendMail from '../services/sendMail.js';
+import { passwordReset, sendMail } from '../services/sendMail.js';
 import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {
@@ -117,7 +117,6 @@ export const forgotPassword = async (req, res) => {
         const resetLink =
             `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
-        // Send reset email
         await passwordReset(email, resetLink);
 
         return res.status(200).json({
@@ -127,6 +126,59 @@ export const forgotPassword = async (req, res) => {
     } catch (error) {
         console.error(error);
 
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+};
+
+export const resetPassword = async (req, res) => {
+
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if (!password || password.length < 6) {
+            return res.status(400).json({
+                message: "Password must be at least 6 characters"
+            });
+        }
+
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+       const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        return res.status(200).json({
+            message: "Password reset successfully"
+        });
+
+    } catch (error) {
+
+        if (error.name === 'TokenExpiredError') {
+            return res.status(400).json({
+                message: "Reset link has expired. Please request a new link."
+            });
+        }
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(400).json({
+                message: "Invalid reset link"
+            });
+        }
+        console.error(error)
         return res.status(500).json({
             message: "Internal server error"
         });

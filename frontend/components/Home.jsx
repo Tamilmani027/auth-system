@@ -3,6 +3,7 @@ import "../src/App.css";
 import { useContext, useState } from 'react';
 import Context from '../src/Context';
 import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 
 function Home() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ function Home() {
       <button onClick={() => navigate('/register')}>Register</button>
       </div>)}
       </div>
+      <ResetPassword/>
      <Outlet />
      
     </div>

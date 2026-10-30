@@ -1,51 +1,73 @@
-import nodemailer from 'nodemailer';
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+import { BrevoClient } from '@getbrevo/brevo';
 
 export const sendMail = async (to, subject, text) => {
-  try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to,
-      subject,
-      text
-    });
+    try {
+        const brevo = new BrevoClient({
+            apiKey: process.env.BREVO_API_KEY
+        });
 
-    console.log('Email sent successfully');
-  } catch (error) {
-    console.error('Email error:', error.message);
-  }
+        const response = await brevo.transactionalEmails.sendTransacEmail({
+            sender: {
+                name: 'Auth System',
+                email: process.env.EMAIL_USER
+            },
+            to: [{ email: to }],
+            subject: subject,
+            textContent: text
+        });
+
+        console.log('Email sent successfully:', response.messageId);
+        return response;
+
+    } catch (error) {
+        console.error('Email error:', error.message);
+        throw error;
+    }
 };
 
+
 export const passwordReset = async (email, resetLink) => {
+    try {
+        const brevo = new BrevoClient({
+            apiKey: process.env.BREVO_API_KEY
+        });
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
+        const response = await brevo.transactionalEmails.sendTransacEmail({
+            sender: {
+                name: 'Auth System',
+                email: process.env.EMAIL_USER
+            },
+            to: [{ email: email }],
+            subject: 'Password Reset Request',
+            htmlContent: `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2>Password Reset Request</h2>
 
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: 'Password Reset',
-        html: `
-            <h2>Password Reset Request</h2>
-            <p>Click the link below to reset your password.</p>
-            <a href="${resetLink}">Reset Password</a>
-            <p>This link expires in 15 minutes.</p>
-        `
-    };
+                    <p>We received a request to reset your password.</p>
 
-    const info = await transporter.sendMail(mailOptions);
+                    <p>Click the button below to reset your password:</p>
 
-    return info;
+                    <a href="${resetLink}"
+                       style="background-color: #007bff;
+                              color: white;
+                              padding: 12px 20px;
+                              text-decoration: none;
+                              border-radius: 5px;">
+                        Reset Password
+                    </a>
+
+                    <p>This link expires in 15 minutes.</p>
+
+                    <p>If you didn't request this, please ignore this email.</p>
+                </div>
+            `
+        });
+
+        console.log('Password reset email sent:', response.messageId);
+        return response;
+
+    } catch (error) {
+        console.error('Password reset email error:', error.message);
+        throw error;
+    }
 };
