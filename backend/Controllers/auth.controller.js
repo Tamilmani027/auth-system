@@ -135,7 +135,7 @@ export const forgotPassword = async (req, res) => {
 export const resetPassword = async (req, res) => {
 
     try {
-        const { token } = req.params;
+
         const { password } = req.body;
 
         if (!password || password.length < 6) {
@@ -144,12 +144,7 @@ export const resetPassword = async (req, res) => {
             });
         }
 
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET
-        );
-
-        const user = await User.findById(decoded.id);
+        const user = await User.findById(req.userId);
 
         if (!user) {
             return res.status(404).json({
@@ -157,9 +152,10 @@ export const resetPassword = async (req, res) => {
             });
         }
 
-       const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         user.password = hashedPassword;
+
         await user.save();
 
         return res.status(200).json({
@@ -168,17 +164,8 @@ export const resetPassword = async (req, res) => {
 
     } catch (error) {
 
-        if (error.name === 'TokenExpiredError') {
-            return res.status(400).json({
-                message: "Reset link has expired. Please request a new link."
-            });
-        }
-        if (error.name === 'JsonWebTokenError') {
-            return res.status(400).json({
-                message: "Invalid reset link"
-            });
-        }
-        console.error(error)
+        console.error(error);
+
         return res.status(500).json({
             message: "Internal server error"
         });
