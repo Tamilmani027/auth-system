@@ -29,7 +29,8 @@ const LoginPage=()=> {
 	const handleSubmit = async (values, {resetForm, setSubmitting})=>{
 		try{
 			const response= await axios.post('/login',values);
-			localStorage.setItem('isLoggedIn','true');
+			const token=response.data.user.token;
+			localStorage.setItem('token',token);
 			login()
 			console.log(response.data);
 			resetForm();

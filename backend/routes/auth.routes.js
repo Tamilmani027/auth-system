@@ -1,6 +1,6 @@
 import express from 'express';
 import { forgotPassword, login, register, resetPassword} from '../controllers/auth.controller.js';
-import { verifyResetToken } from './../middleware/auth.middleware';
+import { verifyResetToken, verifyToken } from './../middleware/auth.middleware.js';
 
 
 const route=express.Router();
@@ -9,5 +9,6 @@ route.post('/register',register);
 route.post('/login',login);
 route.post('/forgot-password',forgotPassword);
 route.post('/reset-password/:token',verifyResetToken, resetPassword);
+route.get('/verify-token',verifyToken);
 
 export default route;

@@ -64,7 +64,7 @@ export const login = async (req, res) => {
       password,
       user.password
     );
-
+    
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -72,13 +72,20 @@ export const login = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+            { id: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        );
+
     return res.status(200).json({
       success: true,
       message: 'Login successful',
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        token:token
       }
     });
 
