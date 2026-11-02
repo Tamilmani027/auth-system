@@ -24,6 +24,7 @@ function Home() {
             <h3>Welcome back!</h3>
 
             <button onClick={() =>HandleLogout()}>Logout</button>
+            <button onClick={()=>navigate('/profile')}>Profile</button>
           </div>
         ) :
       ( <div className='homePageBtn'>

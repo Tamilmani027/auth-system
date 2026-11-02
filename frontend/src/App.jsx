@@ -13,6 +13,9 @@ import ForgotPassword from '../components/ForgotPassword';
 import ResetPassword from '../components/ResetPassword';
 
 import Context from './Context';
+import Profile from '../components/Profile';
+import ProtectedRoute from '../components/ProtectedRoute';
+import PublicRoute from '../components/PublicRoute';
 
 const router = createBrowserRouter([
     {
@@ -21,19 +24,23 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'register',
-                element: <RegisterPage />
+                element: <PublicRoute><RegisterPage /></PublicRoute>
             },
             {
                 path: 'login',
-                element: <LoginPage />
+                element: <PublicRoute><LoginPage /></PublicRoute>
             },
             {
                 path: 'forgot-password',
-                element: <ForgotPassword />
+                element: <PublicRoute><ForgotPassword /></PublicRoute>
             },
             {
                 path: 'reset-password/:token',
-                element: <ResetPassword />
+                element: <PublicRoute><ResetPassword /></PublicRoute>
+            },
+            {
+                path:'profile',
+                element:<ProtectedRoute><Profile /></ProtectedRoute>
             }
         ]
     }
