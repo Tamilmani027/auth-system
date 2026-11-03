@@ -3,7 +3,7 @@ import {
     RouterProvider
 } from 'react-router-dom';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Home from '../components/Home';
@@ -16,6 +16,8 @@ import Context from './Context';
 import Profile from '../components/Profile';
 import ProtectedRoute from '../components/ProtectedRoute';
 import PublicRoute from '../components/PublicRoute';
+import AdminRoute from '../components/AdminRoute';
+import AdminDashboard from '../components/AdminDashboard';
 
 const router = createBrowserRouter([
     {
@@ -41,6 +43,16 @@ const router = createBrowserRouter([
             {
                 path:'profile',
                 element:<ProtectedRoute><Profile /></ProtectedRoute>
+            },
+            {
+                path:'admin',
+                element:<AdminRoute />,
+                children: [
+                    {
+                        index: true,
+                        element: <AdminDashboard />
+                    }
+                ]
             }
         ]
     }
@@ -49,6 +61,7 @@ const router = createBrowserRouter([
 function App() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -72,6 +85,7 @@ function App() {
                 });
 
                 if (response.data.success) {
+                    setUser(response.data.user);
                     setIsLoggedIn(true);
                 }
 
@@ -86,6 +100,7 @@ function App() {
                     localStorage.removeItem('token');
                 }
 
+                setUser(null);
                 setIsLoggedIn(false);
 
             } finally {
@@ -97,14 +112,38 @@ function App() {
 
     }, []);
 
-    const login = () => {
-        setIsLoggedIn(true);
-    };
+    const login = useCallback(async () => {
+        const token = localStorage.getItem('token');
 
-    const logout = () => {
-        localStorage.removeItem('token');
+        try {
+            // Role is not part of the login response, so fetch it here.
+            const response = await axios.get('/verify-token', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.data.success) {
+                setUser(response.data.user);
+                setIsLoggedIn(true);
+                return true;
+            }
+        } catch (error) {
+            if (error.response?.status === 401) {
+                localStorage.removeItem('token');
+            }
+        }
+
+        setUser(null);
         setIsLoggedIn(false);
-    };
+        return false;
+    }, []);
+
+    const logout = useCallback(() => {
+        localStorage.removeItem('token');
+        setUser(null);
+        setIsLoggedIn(false);
+    }, []);
 
     if (loading) {
         return <h2>Checking authentication...</h2>;
@@ -113,6 +152,7 @@ function App() {
     return (
         <Context.Provider value={{
             isLoggedIn,
+            user,
             login,
             logout
         }}>

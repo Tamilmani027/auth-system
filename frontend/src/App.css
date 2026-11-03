@@ -209,3 +209,167 @@ button{
   height:250px;
   border-radius: 8px;
 }
+
+.admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+    font-family: Arial, sans-serif;
+}
+
+.admin-sidebar {
+    width: 250px;
+    background-color: #141c2a;
+    color: white;
+    padding: 25px 15px;
+    flex-shrink: 0;
+}
+
+.admin-sidebar h2 {
+    font-size: 22px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.admin-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-sidebar a {
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 13px 15px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.admin-sidebar a:hover,
+.admin-sidebar a.active {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+}
+
+.admin-content h1 {
+    font-size: 28px;
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.dashboard-subtitle {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.dashboard-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #3b82f6;
+}
+
+.dashboard-card h3 {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 15px;
+}
+
+.dashboard-card p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.recent-users {
+    background-color: white;
+    padding: 25px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.recent-users h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+.recent-users table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-users th,
+.recent-users td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.recent-users th {
+    background-color: #f8fafc;
+    color: #475569;
+}
+
+.recent-users td {
+    color: #64748b;
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 180px;
+    }
+
+    .admin-content {
+        padding: 20px;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-dashboard {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: auto;
+    }
+
+    .admin-sidebar nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .admin-sidebar a {
+        padding: 10px;
+    }
+
+    .admin-content {
+        padding: 15px;
+    }
+
+    .recent-users {
+        overflow-x: auto;
+    }
+
+    .recent-users table {
+        min-width: 400px;
+    }
+}

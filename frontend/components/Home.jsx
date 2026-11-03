@@ -1,13 +1,11 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import "../src/App.css";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Context from '../src/Context';
-import ForgotPassword from './ForgotPassword';
-import ResetPassword from './ResetPassword';
 
 function Home() {
   const navigate = useNavigate();
-  const {isLoggedIn, login ,logout} = useContext(Context);
+  const {isLoggedIn, user, logout} = useContext(Context);
  
  const HandleLogout=()=>{
       logout()
@@ -25,6 +23,9 @@ function Home() {
 
             <button onClick={() =>HandleLogout()}>Logout</button>
             <button onClick={()=>navigate('/profile')}>Profile</button>
+            {user?.role === 'admin' && (
+              <button onClick={()=>navigate('/admin')}>Admin Dashboard</button>
+            )}
           </div>
         ) :
       ( <div className='homePageBtn'>

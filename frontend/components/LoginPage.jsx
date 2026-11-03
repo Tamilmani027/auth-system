@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage=()=> {
 	const navigate=useNavigate();
-	const {isLoggedIn, login ,logout} = useContext(Context);
+	const {login} = useContext(Context);
 
 	const initialValues={
 		email:"",
@@ -31,7 +31,14 @@ const LoginPage=()=> {
 			const response= await axios.post('/login',values);
 			const token=response.data.user.token;
 			localStorage.setItem('token',token);
-			login()
+
+			const loggedIn = await login();
+
+			if (!loggedIn) {
+				toast.error('Could not verify your session, please login again');
+				return;
+			}
+
 			console.log(response.data);
 			resetForm();
 			toast.success(response.data.message || 'Login successful');

@@ -1,5 +1,5 @@
 import express from 'express';
-import { forgotPassword, getProfile, login, register, resetPassword} from '../controllers/auth.controller.js';
+import { forgotPassword, getProfile, login, register, resetPassword, verifyAdmin} from '../controllers/auth.controller.js';
 import { verifyAuthToken, verifyResetToken, verifyToken } from './../middleware/auth.middleware.js';
 
 
@@ -10,6 +10,7 @@ route.post('/login',login);
 route.post('/forgot-password',forgotPassword);
 route.post('/reset-password/:token',verifyResetToken, resetPassword);
 route.get('/verify-token',verifyToken);
-route.get('/profile',verifyAuthToken,getProfile)
+route.get('/profile',verifyAuthToken,getProfile);
+route.get('/admin',verifyAuthToken,verifyAdmin);
 
 export default route;

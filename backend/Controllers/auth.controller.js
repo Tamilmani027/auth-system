@@ -72,8 +72,9 @@ export const login = async (req, res) => {
       });
     }
 
+    // `type` keeps access tokens distinct from password reset tokens
     const token = jwt.sign(
-            { id: user._id },
+            { id: user._id, type: 'access' },
             process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
@@ -115,8 +116,9 @@ export const forgotPassword = async (req, res) => {
             });
         }
 
+        // `type` keeps reset tokens from being used as access tokens
         const resetToken = jwt.sign(
-            { id: user._id },
+            { id: user._id, type: 'reset' },
             process.env.JWT_SECRET,
             { expiresIn: '15m' }
         );
@@ -193,6 +195,32 @@ export const getProfile = async (req, res) => {
             user
         });
 
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Server error'
+        });
+    }
+};
+
+export const verifyAdmin = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId).select('-password');
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        if (user.role !== 'admin') {
+            return res.status(403).json({
+                message: 'Access denied. Admin only.'
+            });
+        }
+
+        return res.status(200).json({
+          message:'Welcome to admin dashboard'
+        })
     } catch (error) {
         return res.status(500).json({
             message: 'Server error'

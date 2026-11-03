@@ -16,6 +16,12 @@ export const verifyResetToken = (req, res, next) => {
             process.env.JWT_SECRET
         );
 
+        if (decoded.type !== 'reset') {
+            return res.status(401).json({
+                message: "Invalid reset token"
+            });
+        }
+
         req.userId = decoded.id;
 
         next();
@@ -45,6 +51,12 @@ export const verifyAuthToken = (req, res, next) => {
             token,
             process.env.JWT_SECRET
         );
+
+        if (decoded.type !== 'access') {
+            return res.status(401).json({
+                message: 'Invalid token'
+            });
+        }
 
         req.userId = decoded.id;
 
@@ -83,6 +95,13 @@ export const verifyToken = async (req, res) => {
             token,
             process.env.JWT_SECRET
         );
+
+        if (decoded.type !== 'access') {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid token'
+            });
+        }
 
         const user = await User.findById(decoded.id).select('-password');
 
