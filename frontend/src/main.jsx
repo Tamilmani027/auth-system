@@ -7,8 +7,8 @@ import {ToastContainer} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 
-{/*axios.defaults.baseURL = 'https://auth-system-1-jeo5.onrender.com/'; */}
-axios.defaults.baseURL = 'http://localhost:3000/api/auth'; 
+axios.defaults.baseURL = 'https://auth-system-1-jeo5.onrender.com/'; 
+{/*axios.defaults.baseURL = 'http://localhost:3000/api/auth'; */}
 
 
 createRoot(document.getElementById('root')).render(
