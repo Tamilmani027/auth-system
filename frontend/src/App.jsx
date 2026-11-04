@@ -45,14 +45,8 @@ const router = createBrowserRouter([
                 element:<ProtectedRoute><Profile /></ProtectedRoute>
             },
             {
-                path:'admin',
-                element:<AdminRoute />,
-                children: [
-                    {
-                        index: true,
-                        element: <AdminDashboard />
-                    }
-                ]
+            path:'admin',
+            element:<ProtectedRoute><AdminDashboard /></ProtectedRoute> 
             }
         ]
     }
@@ -116,7 +110,6 @@ function App() {
         const token = localStorage.getItem('token');
 
         try {
-            // Role is not part of the login response, so fetch it here.
             const response = await axios.get('/verify-token', {
                 headers: {
                     Authorization: `Bearer ${token}`

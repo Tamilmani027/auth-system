@@ -72,7 +72,6 @@ export const login = async (req, res) => {
       });
     }
 
-    // `type` keeps access tokens distinct from password reset tokens
     const token = jwt.sign(
             { id: user._id, type: 'access' },
             process.env.JWT_SECRET,
@@ -116,7 +115,6 @@ export const forgotPassword = async (req, res) => {
             });
         }
 
-        // `type` keeps reset tokens from being used as access tokens
         const resetToken = jwt.sign(
             { id: user._id, type: 'reset' },
             process.env.JWT_SECRET,
